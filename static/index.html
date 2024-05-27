@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет времени</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #timer {
+            font-size: 5vw; /* Используем относительный размер шрифта */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            white-space: nowrap; /* Запрещаем перенос строк */
+        }
+        iframe {
+            display: none; /* Скрываем iframe */
+        }
+    </style>
+</head>
+<body>
+    <div id="timer"></div>
+    <iframe src="Stasyachka.mp3" allow="autoplay" id="audio-frame"></iframe> <!-- Укажите ваш MP3 файл -->
+    <script>
+        function updateTimer() {
+            const endDate = new Date('2024-12-31T23:59:59'); // Укажите вашу дату
+            const now = new Date();
+            const remaining = endDate - now;
+            
+            if (remaining <= 0) {
+                document.getElementById('timer').innerText = 'Время истекло';
+                return;
+            }
+
+            const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').innerText = `${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer(); // Запускаем сразу, чтобы не ждать первую секунду
+    </script>
+</body>
+</html>
